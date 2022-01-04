@@ -1,5 +1,4 @@
 const path = require("path");
-const { webpack } = require("webpack");
 
 //webpack 공식문서 https://webpack.js.org
 
