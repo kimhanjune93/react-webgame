@@ -27,7 +27,7 @@ module.exports = {
                 debug: true,
               },
             ],
-            "@babel/preset-react",
+            "@babel/preset-react", // JSX문법을 사용할 수 있게 하는 preset
           ],
           plugins: [],
         },
