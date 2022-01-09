@@ -1,49 +1,44 @@
-// import path from "path";
-const path = require("path"); // node
-const RefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin'); //
+const path = require('path');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 module.exports = {
-  name: "word-relay-setting", // webpack 이름
-  mode: "development", // 실서비스에서는 production
-  devtool: "eval",
+  name: 'word-relay-dev',
+  mode: 'development',
+  devtool: 'inline-source-map',
   resolve: {
-    extensions: [".js", ".jsx"], // 확장자
+    extensions: ['.js', '.jsx'],
   },
   entry: {
-    app: ["./client"], // 이미 파일 내에서 불러오고 있는 파일은 넣지 않아도 됨.
-  }, // 입력
-  module: {
-    rules: [
-      {
-        test: /\.jsx?/,
-        loader: "babel-loader",
-        options: {
-          presets: [
-            [
-              "@babel/preset-env",
-              // https://github.com/browserslist/browserslist#queries
-              // preset은 plugin들의 집합
-              {
-                targets: { browsers: [">1% in KR"] }, // 한국 점유율 1퍼센트 이상 브라우저에서만 지원
-                debug: true,
-              },
-            ],
-            "@babel/preset-react",
-            'react-refresh/babel',
-          ],
-        },
-      },
-    ],
+    app: './client',
   },
-  plugins:[
-    new RefreshWebpackPlugin({overlay:false}),
+  module: {
+    rules: [{
+      test: /\.jsx?$/,
+      loader: 'babel-loader',
+      options: {
+        presets: [
+          ['@babel/preset-env', {
+            targets: {browsers: ['last 2 chrome versions']},
+            debug: true,
+          }],
+          '@babel/preset-react',
+        ],
+        plugins: ['react-refresh/babel'],
+      },
+      exclude: path.join(__dirname, 'node_modules'),
+    }],
+  },
+  plugins: [
+    new ReactRefreshWebpackPlugin(),
   ],
   output: {
-    path: path.join(__dirname, "dist"), // __dirname: 현재경로, 'dist': 폴더명
-    filename: "app.js",
-    publicPath: "/dist/",
-  }, // 출력
-  devServer:{ // 프론트 개발용 서버
-    hot: true
+    path: path.join(__dirname, 'dist'),
+    filename: '[name].js',
+    publicPath: '/dist',
   },
+  devServer: {
+    devMiddleware: { publicPath: '/dist' },
+    static: { directory: path.resolve(__dirname) },
+    hot: true
+  }
 };
