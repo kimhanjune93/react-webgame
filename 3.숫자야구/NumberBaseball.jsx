@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { getAvailableNumberOfCores } from "../2.끝말잇기/node_modules/terser-webpack-plugin/types";
-
+import Try from "./Try";
 function getNumbers() {}
 
 class NumberBaseball extends Component {
@@ -12,6 +11,11 @@ class NumberBaseball extends Component {
   };
   onSubmitForm = () => {};
   onChangeInput = () => {};
+
+  fruits = [
+    { fruit: "사과", taste: "맛있다" },
+    { fruit: "배", taste: "맛있다" },
+  ];
   render() {
     return (
       <>
@@ -24,11 +28,13 @@ class NumberBaseball extends Component {
           />
         </form>
         <div>시도: {this.state.tries.length}</div>
-        <ul>{tries.map(()=>{
-            return(
-                <li></li>
-            )
-        })}</ul>
+        <ul>
+          {this.fruits.map((v, i) => {
+            return (
+              <Try value = {v} index = {i} key = {v.fruit + v.taste}/>
+            );
+          })}
+        </ul>
       </>
     );
   }
