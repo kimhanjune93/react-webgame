@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import Try from "./Try";
-function getNumbers() {}
+function getNumbers() {
+  const candidate = [1,2,3,4,5,6,7,8,9];
+}
 
 class NumberBaseball extends Component {
   state = {
@@ -9,7 +11,14 @@ class NumberBaseball extends Component {
     answer: getNumbers(),
     tries: [],
   };
-  onSubmitForm = () => {};
+  onSubmitForm = (e) => {
+    e.preventDefault();
+    if (this.state.value === this.state.answer.join('')) {
+
+    } else {
+
+    }
+  };
   onChangeInput = () => {};
 
   fruits = [
