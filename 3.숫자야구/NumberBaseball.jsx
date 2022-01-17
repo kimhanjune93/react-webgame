@@ -63,7 +63,6 @@ const NumberBaseball = () => {
   const onChangeInput = (e) => {
     setValue(e.target.value);
   };
-
   return (
     <>
       <h1>{result}</h1>
