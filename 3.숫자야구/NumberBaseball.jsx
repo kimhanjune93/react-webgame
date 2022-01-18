@@ -1,5 +1,5 @@
-import React, { useState, memo } from "react";
-import Try from "./TryClass";
+import React, { useState, memo, useRef } from "react";
+import Try from "./Try";
 
 function getNumbers() {
   // 숫자 네 개를 겹치지 않고 랜덤하게 뽑는 함수
@@ -17,6 +17,7 @@ const NumberBaseball = memo(() => {
   const [value, setValue] = useState("");
   const [answer, setAnswer] = useState(getNumbers());
   const [tries, setTries] = useState([]);
+  const inputEl = useRef(null);
 
   const onSubmitForm = (e) => {
     e.preventDefault();
@@ -58,6 +59,7 @@ const NumberBaseball = memo(() => {
         setValue("");
       }
     }
+    inputEl.current.focus();
   };
 
   const onChangeInput = (e) => {
@@ -67,7 +69,12 @@ const NumberBaseball = memo(() => {
     <>
       <h1>{result}</h1>
       <form onSubmit={onSubmitForm}>
-        <input maxLength={4} value={value} onChange={onChangeInput} />
+        <input
+          ref={inputEl}
+          maxLength={4}
+          value={value}
+          onChange={onChangeInput}
+        />
       </form>
       <div>시도: {tries.length}</div>
       <ul>
