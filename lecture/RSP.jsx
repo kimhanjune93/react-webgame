@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 class RSP extends Component {
     render() {
-        return null
+        return ();
     }
 }
 export default RSP;
