@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 
-class RSP extends Component {
+class RSP extends PureComponent {
     render() {
         return ();
     }
