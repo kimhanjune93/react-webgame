@@ -58,7 +58,7 @@ const RSP = () => {
       setScore((prevScore) => prevScore - 1);
     }
     setTimeout(() => {
-      interval.current = setInterval(this.changeHand, 100);
+      interval.current = setInterval(this.changeHand, 200);
     }, 1000);
   };
   return (
