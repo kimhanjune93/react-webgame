@@ -27,7 +27,7 @@ const RSP = () => {
   const [imgCoord, setImgCoord] = useState(rspCoords.바위);
   const [score, setScore] = useState(0);
   const interval = useRef();
-  
+
   useEffect(() => { // componentDidMount, componentDidUpdate
     interval.current = setInterval(changeHand, 100);
     return () => { // componentWillUnmount
@@ -58,7 +58,7 @@ const RSP = () => {
       setScore((prevScore) => prevScore - 1);
     }
     setTimeout(() => {
-      interval.current = setInterval(this.changeHand, 200);
+      interval.current = setInterval(changeHand, 200);
     }, 1000);
   };
   return (
