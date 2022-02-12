@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Ball from "./Ball";
 function getWinNumbers() {
-  console.log("getWinNumbers");
   const candidate = Array(45)
     .fill()
     .map((v, i) => i + 1);
@@ -25,8 +24,7 @@ class Lotto extends Component {
   };
 
   timeouts = [];
-
-  componentDidMount() {
+  runTimeouts = () => {
     const { winNumbers } = this.state;
     for (let i = 0; i < this.state.winNumbers.length - 1; i++) {
       this.timeouts[i] = setTimeout(() => {
@@ -43,13 +41,34 @@ class Lotto extends Component {
         redo: true,
       });
     }, 7000);
+  };
+  componentDidMount() {
+    this.runTimeouts();
   }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.winBalls.length === 0) {
+      this.runTimeouts();
+    }
+  }
+
   componentWillUnmount() {
     // setTimeOut은 무조건 clear해줘야함.
-    this.timeouts.lforEach((v) => {
+    this.timeouts.forEach((v) => {
       clearTimeout(v);
     });
   }
+
+  onClickRedo = () => {
+    this.setState({
+      winNumbers: getWinNumbers(), // 당첨 숫자들
+      winBalls: [],
+      bonus: null, // 보너스 공
+      redo: false,
+    });
+    this.timeouts = [];
+  };
+
   render() {
     const { winBalls, bonus, redo } = this.state;
     return (
@@ -62,7 +81,7 @@ class Lotto extends Component {
         </div>
         <div>보너스!</div>
         {bonus && <Ball number={bonus} />}
-        {redo && <button onClick={this.onClickRedo }>한 번 더!</button>}
+        {redo && <button onClick={this.onClickRedo}>한 번 더!</button>}
       </>
     );
   }
