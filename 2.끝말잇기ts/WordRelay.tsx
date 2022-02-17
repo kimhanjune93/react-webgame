@@ -25,7 +25,7 @@ const WordRelay = () => {
         input.focus();
       }
     }
-  }, [value]);
+  }, [word,value]);
   const onChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => setValue(e.currentTarget.value),
     []
