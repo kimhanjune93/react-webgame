@@ -7,25 +7,24 @@ const WordRelay = () => {
   const [result, setResult] = useState("");
   const inputEl = useRef<HTMLInputElement>(null);
 
-  const onSubmitForm = useCallback<(e: React.FormEvent) => void>((e) => {
-    e.preventDefault();
-    const input = inputEl.current;
-    console.log(word[word.length-1] === value[0], word, value);
-    if (word[word.length - 1] === value[0]) {
-      setResult("딩동댕");
-      setWord(value);
-      setValue("");
-      if (input) {
-        input.focus();
+  const onSubmitForm = useCallback<(e: React.FormEvent) => void>(
+    (e) => {
+      e.preventDefault();
+      const input = inputEl.current;
+      console.log(word[word.length - 1] === value[0], word, value);
+      if (word[word.length - 1] === value[0]) {
+        setResult("딩동댕");
+        setWord(value);
+        setValue("");
+        input?.focus();
+      } else {
+        setResult("땡!");
+        setValue("");
+        input?.focus();
       }
-    } else {
-      setResult("땡!");
-      setValue("");
-      if (input) {
-        input.focus();
-      }
-    }
-  }, [word,value]);
+    },
+    [word, value]
+  );
   const onChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => setValue(e.currentTarget.value),
     []
