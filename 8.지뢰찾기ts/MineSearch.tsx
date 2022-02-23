@@ -22,7 +22,7 @@ interface ReducerState {
   timer: number;
   result: string;
   halted: boolean;
-  opendedCount: number;
+  opendCount: number;
 }
 
 const initialState: ReducerState = {
@@ -35,7 +35,7 @@ const initialState: ReducerState = {
   timer: 0,
   result: "",
   halted: true,
-  opendedCount: 0,
+  opendCount: 0,
 };
 
 const plantMine = (row: number, cell: number, mine: number) => {
@@ -84,22 +84,31 @@ interface StartGameAction {
   mine: number;
 }
 
-const startGame = (row:number, cell:number, mine:number) : StartGameAction => {
-    return {
-        type:START_GAME, row, cell, mine,
-    }
-}
+const startGame = (
+  row: number,
+  cell: number,
+  mine: number
+): StartGameAction => {
+  return {
+    type: START_GAME,
+    row,
+    cell,
+    mine,
+  };
+};
 interface OpenCellAction {
   type: typeof OPEN_CELL;
   row: number;
   cell: number;
 }
 
-const openCell = (row:number, cell:number): OpenCellAction => {
-    return {
-        type: OPEN_CELL, row, cell,
-    }
-}
+const openCell = (row: number, cell: number): OpenCellAction => {
+  return {
+    type: OPEN_CELL,
+    row,
+    cell,
+  };
+};
 
 interface ClickMineAction {
   type: typeof CLICK_MINE;
@@ -107,18 +116,26 @@ interface ClickMineAction {
   cell: number;
 }
 
-const clickMine = (row:number, cell:number) : ClickMineAction => {
-    return {
-        type: CLICK_MINE, row, cell,
-    }
-}
+const clickMine = (row: number, cell: number): ClickMineAction => {
+  return {
+    type: CLICK_MINE,
+    row,
+    cell,
+  };
+};
 interface FlagMineAction {
   type: typeof FLAG_CELL;
   row: number;
   cell: number;
 }
 
-
+const flagMine = (row: number, cell: number): FlagMineAction => {
+  return {
+    type: FLAG_CELL,
+    row,
+    cell,
+  };
+};
 
 interface QuestionCellAction {
   type: typeof QUESTION_CELL;
@@ -126,15 +143,80 @@ interface QuestionCellAction {
   cell: number;
 }
 
+const questionCell = (row: number, cell: number): QuestionCellAction => {
+  return {
+    type: QUESTION_CELL,
+    row,
+    cell,
+  };
+};
+
 interface NormalizeCellAction {
   type: typeof NORMALIZE_CELL;
   row: number;
   cell: number;
 }
 
+const normalizeCell = (row: number, cell: number): NormalizeCellAction => {
+  return {
+    type: NORMALIZE_CELL,
+    row,
+    cell,
+  };
+};
+
 interface IncrementTimerAction {
   type: typeof INCREMENT_TIMER;
 }
+
+const incrementTimer = (): IncrementTimerAction => {
+  return {
+    type: INCREMENT_TIMER,
+  };
+};
+
+type ReducerActions =
+  | StartGameAction
+  | OpenCellAction
+  | ClickMineAction
+  | FlagMineAction
+  | QuestionCellAction
+  | NormalizeCellAction
+  | IncrementTimerAction;
+
+const reducer = (
+  state = initialState,
+  action: ReducerActions
+): ReducerState => {
+  switch (action.type) {
+    case START_GAME:
+      return {
+        ...state,
+        data: {
+          row: action.row,
+          cell: action.cell,
+          mine: action.mine,
+        },
+        opendCount: 0,
+        tableData: plantMine(action.row, action.cell, action.mine),
+        halted: false,
+        timer: 0,
+      };
+    case OPEN_CELL:
+    case CLICK_MINE: {
+      const tableData = [...state.tableData];
+      tableData[action.row] = [...state.tableData[action.row]];
+      tableData[action.row][action.cell] = CODE.CLICKED_MINE;
+      return {
+        ...state,
+        tableData,
+        halted: true,
+      };
+    }
+    default:
+      return state;
+  }
+};
 
 const MineSearch = () => {
   return <></>;
