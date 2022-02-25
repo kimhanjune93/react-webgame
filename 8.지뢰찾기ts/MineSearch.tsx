@@ -294,7 +294,7 @@ const MineSearch = () => {
         dispatch({ type: INCREMENT_TIMER });
       }, 1000);
     }
-  });
+  },[halted]);
   return (
     <TableContext.Provider value={value}>
       <Form />
