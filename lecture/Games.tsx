@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import GameMatcher from './GameMatcher';
+import NumberBaseball from '../3.숫자야구ts/NumberBaseball';
 
 const Games: React.FunctionComponent = () => {
   return (
@@ -16,8 +17,8 @@ const Games: React.FunctionComponent = () => {
       </div>
       <div>
         <Routes>
-          <Route path="*" element={<GameMatcher />} />
-          <Route path="/game/:name" element={<GameMatcher />} />
+          <Route path="/" element={<GameMatcher />} />
+          <Route path="/game/:name/*" element={<GameMatcher />} />
         </Routes>
       </div>
     </BrowserRouter>

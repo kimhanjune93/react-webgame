@@ -5,7 +5,7 @@ import Lotto from '../6.로또ts/Lotto';
 import {useLocation, useNavigate, Routes, Route} from 'react-router';
 
 const GameMatcher = () => {
-    // const location = useLocation();
+    // const location = useLocation().pathname.split('/')[2];
     // const navigate = useNavigate();
     // let urlSearchParams = new URLSearchParams(location.search.slice(1));
     // console.log(urlSearchParams.get('page'));
