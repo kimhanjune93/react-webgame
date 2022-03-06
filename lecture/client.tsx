@@ -1,6 +1,8 @@
 import * as React from "react";
 import * as ReactDom from "react-dom";
 
-import Games from "./Games";
+import { Provider } from "react-redux";
+import store from './store';
+import App from "./App";
 
-ReactDom.render(<Games />, document.querySelector("#root"));
+ReactDom.render(<App />, document.querySelector("#root"));
