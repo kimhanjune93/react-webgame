@@ -19,7 +19,7 @@ const userStore = observable<UserStore>({
       action(() => {
         userStore.data = data;
         userStore.isLoggingIn = false;
-        postStore.addPost("hello");
+        postStore.addPost("로그인 완료");
       }),
       2000
     );
